@@ -3,3 +3,4 @@
 node_modules/
 generated-images/
 .DS_Store
+*.pptx
