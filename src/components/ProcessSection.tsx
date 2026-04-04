@@ -11,16 +11,41 @@ const steps = [
   { num: "04", title: "本格稼働", desc: "試行審査を通じて運用をシミュレーションし、本稼働へ円滑に移行します。" },
 ];
 
+// Timing: heading → sub → badge → steps sequential
+const HEADING_END = 0.4 + 7 * 0.04 + 0.5; // ~1.18s
+const SUB_DELAY = HEADING_END + 0.2;        // ~1.38s
+const BADGE_DELAY = SUB_DELAY + 0.5;        // ~1.88s
+const STEPS_START = BADGE_DELAY + 0.5;      // ~2.38s
+const STEP_INTERVAL = 0.7;                  // time between each step
+
 export default function ProcessSection() {
   const ref = useRef(null);
   const imgRef = useRef<HTMLImageElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [activeStep, setActiveStep] = useState(-1);
+  const [phase, setPhase] = useState(0);
 
+  // Phase control for strict sequential display
   useEffect(() => {
     if (!isInView) return;
-    const timers = steps.map((_, i) => setTimeout(() => setActiveStep(i), 1700 + i * 500));
+    const timers = [
+      setTimeout(() => setPhase(1), SUB_DELAY * 1000),        // sub text
+      setTimeout(() => setPhase(2), BADGE_DELAY * 1000),       // badge
+      setTimeout(() => setPhase(3), STEPS_START * 1000),       // step 01
+      setTimeout(() => setPhase(4), (STEPS_START + STEP_INTERVAL) * 1000),     // step 02
+      setTimeout(() => setPhase(5), (STEPS_START + STEP_INTERVAL * 2) * 1000), // step 03
+      setTimeout(() => setPhase(6), (STEPS_START + STEP_INTERVAL * 3) * 1000), // step 04
+    ];
+    return () => timers.forEach(clearTimeout);
+  }, [isInView]);
+
+  // Dot activation follows step appearance
+  useEffect(() => {
+    if (!isInView) return;
+    const timers = steps.map((_, i) =>
+      setTimeout(() => setActiveStep(i), (STEPS_START + STEP_INTERVAL * i + 0.3) * 1000)
+    );
     return () => timers.forEach(clearTimeout);
   }, [isInView]);
 
@@ -120,11 +145,11 @@ export default function ProcessSection() {
               yOffset={25}
             />
             <motion.p className="text-[15px] text-body-text leading-[1.8] mt-4"
-              initial={{ opacity: 0, y: 12 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.7, delay: 0.6 }}>
+              initial={{ opacity: 0, y: 12 }} animate={phase >= 1 ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.7 }}>
               審査体制開発支援の場合、NDA締結から90日で本格稼働を実現します。
             </motion.p>
             <motion.div className="inline-block mt-5 px-[18px] py-2 bg-teal/10 border border-teal/20 font-en text-[12px] text-teal font-medium tracking-[1.5px]"
-              initial={{ opacity: 0, y: 12 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.7, delay: 0.8 }}>
+              initial={{ opacity: 0, y: 12 }} animate={phase >= 2 ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.7 }}>
               90-DAY LAUNCH
             </motion.div>
           </div>
@@ -139,13 +164,33 @@ export default function ProcessSection() {
 
             {steps.map((step, i) => (
               <motion.div key={step.num} className="relative pb-11 last:pb-0"
-                initial={{ opacity: 0, y: 20 }} animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.7, delay: 1.0 + i * 0.3 }}>
+                initial={{ opacity: 0, y: 30 }} animate={phase >= 3 + i ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}>
                 <div className={`absolute -left-10 top-[5px] w-[11px] h-[11px] rounded-full border-2 z-[2] transition-all duration-500 ${
                   activeStep >= i ? "border-teal bg-teal shadow-[0_0_0_4px_rgba(63,180,170,0.15)]" : "border-light-gray bg-off-white"}`} />
-                <p className="font-en text-[12px] text-teal tracking-[2px] font-medium uppercase">Step {step.num}</p>
-                <h3 className="text-[20px] font-normal text-dark-text mt-2">{step.title}</h3>
-                <p className="text-[15px] text-body-text leading-[1.8] mt-2.5">{step.desc}</p>
+                <motion.p className="font-en text-[12px] text-teal tracking-[2px] font-medium uppercase"
+                  initial={{ opacity: 0, x: -10 }} animate={phase >= 3 + i ? { opacity: 1, x: 0 } : {}}
+                  transition={{ duration: 0.5, delay: 0.1 }}>
+                  Step {step.num}
+                </motion.p>
+                {phase >= 3 + i ? (
+                  <SplitText
+                    text={step.title}
+                    className="text-[20px] font-normal text-dark-text mt-2"
+                    as="h3"
+                    charDelay={0.03}
+                    startDelay={0.05}
+                    duration={0.4}
+                    yOffset={20}
+                  />
+                ) : (
+                  <h3 className="text-[20px] font-normal text-dark-text mt-2 opacity-0">{step.title}</h3>
+                )}
+                <motion.p className="text-[15px] text-body-text leading-[1.8] mt-2.5"
+                  initial={{ opacity: 0, y: 10 }} animate={phase >= 3 + i ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.6, ease: "easeOut" as const, delay: 0.2 }}>
+                  {step.desc}
+                </motion.p>
               </motion.div>
             ))}
           </div>
