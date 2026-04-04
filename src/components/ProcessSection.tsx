@@ -47,8 +47,9 @@ export default function ProcessSection() {
         <motion.div className="flex-shrink-0 w-[40%] sticky top-[100px] overflow-hidden h-[520px] relative"
           initial={{ opacity: 0, y: 30 }} animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}>
-          <Image ref={imgRef} src="/images/process.png" alt="Consulting meeting" fill
-            className="object-cover object-[center_40%] transition-[filter] duration-300"
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img ref={imgRef} src="/images/process.png" alt="Consulting meeting"
+            className="w-full object-cover object-[center_40%] transition-[filter] duration-300 absolute top-0 left-0"
             style={{ height: "140%", filter: "grayscale(100%)" }} />
           <div className="absolute inset-0 pointer-events-none"
             style={{ background: "linear-gradient(to bottom, #FAFAF8 0%, transparent 8%, transparent 92%, #FAFAF8 100%)" }} />
