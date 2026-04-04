@@ -6,3 +6,4 @@ generated-images/
 *.pptx
 .next/
 next-env.d.ts
+assets/logo-source.png
