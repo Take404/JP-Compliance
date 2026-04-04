@@ -31,7 +31,7 @@ export default function TrackSection() {
 
         <div className="grid grid-cols-4 gap-0">
           {stats.map((stat, i) => (
-            <motion.div key={stat.year + stat.suffix}
+            <motion.div key={stat.desc}
               className={`text-center py-12 px-6 relative ${i > 0 ? "before:absolute before:left-0 before:top-[20%] before:h-[60%] before:w-px before:bg-light-gray" : ""}`}
               initial={{ opacity: 0, y: 30 }} animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.4 + i * 0.2 }}>
