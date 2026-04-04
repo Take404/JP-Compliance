@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import Image from "next/image";
+import SplitText from "./SplitText";
 
 const items = [
   { num: "01", title: "専門性の高さ", desc: "大手製薬企業で資材審査の管理職・専門職を経験した社員が直接審査・助言。外注委託機関とは専門レベルが圧倒的に違います。" },
@@ -47,9 +48,14 @@ export default function WhyUsSection() {
 
         <div className="flex-1 pt-2">
           <motion.p className="font-en text-[11px] tracking-[4px] text-teal uppercase font-medium" {...fadeUp(0.2)}>Why Us</motion.p>
-          <motion.h2 className="text-[32px] font-extralight text-dark-text leading-[1.4] mt-4 tracking-tight" {...fadeUp(0.4)}>
-            クライアントの課題解決に<br />伴走する、唯一のパートナー
-          </motion.h2>
+          <SplitText
+            text="クライアントの課題解決に\n伴走する、唯一のパートナー"
+            className="text-[32px] font-extralight text-dark-text leading-[1.4] mt-4 tracking-tight"
+            as="h2"
+            charDelay={0.03}
+            startDelay={0.4}
+            yOffset={25}
+          />
           <motion.p className="text-[15px] text-body-text leading-[1.8] mt-5" {...fadeUp(0.6)}>
             医薬品広告規制に関する包括的助言を提供できるのは当社のみ。<br />資材審査の受託にとどまらず、仕組みとして構築し、定着させます。
           </motion.p>

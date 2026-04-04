@@ -2,6 +2,7 @@
 
 import { useRef, useEffect, useState } from "react";
 import { motion, useInView } from "framer-motion";
+import SplitText from "./SplitText";
 
 const steps = [
   { num: "01", title: "環境整備", desc: "NDA締結後に体制やIT環境を確認し、導入の基盤を整備します。" },
@@ -110,10 +111,14 @@ export default function ProcessSection() {
               initial={{ opacity: 0, y: 12 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.7, delay: 0.2 }}>
               Process
             </motion.p>
-            <motion.h2 className="text-[32px] font-extralight text-dark-text leading-[1.4] mt-4 tracking-tight"
-              initial={{ opacity: 0, y: 15 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8, delay: 0.4 }}>
-              90日で本格稼働
-            </motion.h2>
+            <SplitText
+              text="90日で本格稼働"
+              className="text-[32px] font-extralight text-dark-text leading-[1.4] mt-4 tracking-tight"
+              as="h2"
+              charDelay={0.04}
+              startDelay={0.4}
+              yOffset={25}
+            />
             <motion.p className="text-[15px] text-body-text leading-[1.8] mt-4"
               initial={{ opacity: 0, y: 12 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.7, delay: 0.6 }}>
               審査体制開発支援の場合、NDA締結から90日で本格稼働を実現します。
