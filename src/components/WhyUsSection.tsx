@@ -49,7 +49,7 @@ export default function WhyUsSection() {
         <div className="flex-1 pt-2">
           <motion.p className="font-en text-[11px] tracking-[4px] text-teal uppercase font-medium" {...fadeUp(0.2)}>Why Us</motion.p>
           <SplitText
-            text="クライアントの課題解決に\n伴走する、唯一のパートナー"
+            text={"クライアントの課題解決に\n伴走する、唯一のパートナー"}
             className="text-[32px] font-extralight text-dark-text leading-[1.4] mt-4 tracking-tight"
             as="h2"
             charDelay={0.03}
