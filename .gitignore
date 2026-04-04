@@ -4,3 +4,5 @@ node_modules/
 generated-images/
 .DS_Store
 *.pptx
+.next/
+next-env.d.ts
