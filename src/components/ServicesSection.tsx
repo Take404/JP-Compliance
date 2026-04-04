@@ -124,7 +124,7 @@ export default function ServicesSection() {
               transition={{
                 duration: 0.8,
                 ease: [0.16, 1, 0.3, 1],
-                delay: 0.4 + i * 0.15,
+                delay: 0.5 + i * 0.25,
               }}
             >
               {/* Image - grayscale by default, color on hover */}
