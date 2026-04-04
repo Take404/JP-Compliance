@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 120">
+  <!-- JP Compliance Logo -->
+  <!-- Shield/checkmark motif representing compliance + protection -->
+  <defs>
+    <linearGradient id="tealGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3FB4AA;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2D8F87;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Shield shape with integrated checkmark -->
+  <g transform="translate(0, 10)">
+    <!-- Outer shield path -->
+    <path d="M50 8 L90 22 L90 55 C90 78 72 94 50 100 C28 94 10 78 10 55 L10 22 Z"
+          fill="none" stroke="url(#tealGrad)" stroke-width="2.5" opacity="0.9"/>
+    <!-- Inner checkmark -->
+    <path d="M32 52 L46 66 L70 38"
+          fill="none" stroke="url(#tealGrad)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- Text: JP -->
+  <text x="108" y="58" font-family="Inter, -apple-system, sans-serif" font-size="42" font-weight="500" fill="#1A2A2E" letter-spacing="2">
+    JP
+  </text>
+
+  <!-- Text: Compliance -->
+  <text x="108" y="90" font-family="Inter, -apple-system, sans-serif" font-size="22" font-weight="300" fill="#1A2A2E" letter-spacing="4">
+    COMPLIANCE
+  </text>
+</svg>
