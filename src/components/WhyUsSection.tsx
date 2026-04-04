@@ -27,9 +27,9 @@ const SUB_CHAR_DELAY = 0.015;
 const SUB_DURATION = 0.4;
 const SUB_END = SUB_START + SUB_CHARS * SUB_CHAR_DELAY + SUB_DURATION; // ~2.55s
 
-// Items start after sub text finishes
-const ITEMS_START = SUB_END + 0.3; // ~2.85s
-const ITEM_STAGGER = 0.4; // time between each item
+// Items start after sub text finishes — match the rhythm of heading→sub transition
+const ITEMS_START = SUB_END + 0.4; // ~2.95s — same breathing room as heading→sub
+const ITEM_STAGGER = 0.8; // time between each item — enough for title chars to finish before next starts
 
 export default function WhyUsSection() {
   const ref = useRef(null);
