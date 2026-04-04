@@ -17,7 +17,7 @@ export default function WhyUsSection() {
   const fadeUp = (delay: number) => ({
     initial: { opacity: 0, y: 15 } as const,
     animate: isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 },
-    transition: { duration: 0.7, ease: "easeOut", delay },
+    transition: { duration: 0.7, ease: "easeOut" as const, delay },
   });
 
   return (
