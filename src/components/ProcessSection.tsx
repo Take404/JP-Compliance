@@ -13,7 +13,6 @@ const steps = [
 export default function ProcessSection() {
   const ref = useRef(null);
   const imgRef = useRef<HTMLImageElement>(null);
-  const imgWrapperRef = useRef<HTMLDivElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [activeStep, setActiveStep] = useState(-1);
@@ -24,84 +23,88 @@ export default function ProcessSection() {
     return () => timers.forEach(clearTimeout);
   }, [isInView]);
 
-  // GSAP-style parallax: image translates on both X and Y axes as user scrolls
-  // Plus grayscale → color transition
   useEffect(() => {
     const handleScroll = () => {
-      if (!sectionRef.current || !imgRef.current || !imgWrapperRef.current) return;
+      if (!sectionRef.current || !imgRef.current) return;
       const rect = sectionRef.current.getBoundingClientRect();
       const wh = window.innerHeight;
 
       if (rect.top < wh && rect.bottom > 0) {
-        // 0 at bottom of viewport → 1 at top
-        const progress = Math.max(0, Math.min(1, (wh - rect.top) / (wh + rect.height * 0.5)));
+        // Progress: 0 when section top hits viewport bottom, 1 when section bottom hits viewport top
+        const progress = Math.max(0, Math.min(1, (wh - rect.top) / (wh + rect.height)));
 
-        // Y-axis parallax: image moves up as user scrolls down (like reference translate 0%, 4%)
-        const yOffset = (progress - 0.5) * -12;
-        // X-axis: subtle drift from right to left as scroll progresses
-        const xOffset = (1 - progress) * 3;
+        // Y-axis parallax: image moves up within its container
+        // Image is 120% height of container, so we can move it ~20% of container height
+        const yOffset = progress * -16; // moves up as user scrolls down
 
-        imgRef.current.style.transform = `translate(${xOffset}%, ${yOffset}%) scale(1.05)`;
+        // X-axis: subtle right-to-left drift
+        const xOffset = (1 - progress) * 2;
 
-        // Grayscale to color
-        const grayscale = Math.max(0, 100 - progress * 250);
+        imgRef.current.style.transform = `translate(${xOffset}%, ${yOffset}%) scale(1.02)`;
+
+        // Grayscale: mono when section enters (~progress 0.1), full color when fully visible (~progress 0.5)
+        // Map progress 0.1-0.5 → grayscale 100%-0%
+        const grayProgress = Math.max(0, Math.min(1, (progress - 0.1) / 0.4));
+        const grayscale = 100 - grayProgress * 100;
         imgRef.current.style.filter = `grayscale(${grayscale}%)`;
       }
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll(); // Initial call
+    handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
-    <section id="process" ref={sectionRef} className="py-[140px]">
-      <div ref={ref} className="max-w-container mx-auto px-12 flex gap-16 items-start">
+    <section id="process" ref={sectionRef} className="relative">
+      <div ref={ref} className="max-w-container mx-auto px-12 flex gap-16 items-start relative">
 
-        {/* Left: Image with GSAP-style parallax */}
+        {/* Left: Full-section-height image */}
         <motion.div
-          ref={imgWrapperRef}
-          className="flex-shrink-0 w-[40%] sticky top-[100px] overflow-hidden h-[560px] relative"
-          initial={{ opacity: 0, x: 60 }}
+          className="w-[40%] flex-shrink-0 relative overflow-hidden"
+          style={{ minHeight: "100%" }}
+          initial={{ opacity: 0, x: 50 }}
           animate={isInView ? { opacity: 1, x: 0 } : {}}
           transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
         >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            ref={imgRef}
-            src="/images/process.png"
-            alt="Consulting meeting"
-            className="absolute -top-[10%] -left-[3%] w-[106%] h-[120%] object-cover object-[center_40%]"
-            style={{
-              filter: "grayscale(100%)",
-              transition: "filter 0.4s ease-out",
-              willChange: "transform, filter",
-            }}
-          />
+          {/* Sticky wrapper: image stays in view while content scrolls */}
+          <div className="sticky top-0 h-screen overflow-hidden">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              ref={imgRef}
+              src="/images/process.png"
+              alt="Consulting meeting"
+              className="absolute top-0 left-0 w-full object-cover object-[center_30%]"
+              style={{
+                height: "120%",
+                filter: "grayscale(100%)",
+                willChange: "transform, filter",
+              }}
+            />
 
-          {/* Top/bottom fade */}
-          <div
-            className="absolute inset-0 pointer-events-none z-[1]"
-            style={{
-              background: "linear-gradient(to bottom, #FAFAF8 0%, transparent 6%, transparent 94%, #FAFAF8 100%)",
-            }}
-          />
+            {/* Top/bottom fade to page background */}
+            <div
+              className="absolute inset-0 pointer-events-none z-[1]"
+              style={{
+                background: "linear-gradient(to bottom, #FAFAF8 0%, transparent 4%, transparent 96%, #FAFAF8 100%)",
+              }}
+            />
 
-          {/* Floating icon badge (like reference faq-icon) */}
-          <motion.div
-            className="absolute bottom-8 right-8 z-[2] w-[72px] h-[72px] bg-teal rounded-full flex items-center justify-center shadow-lg"
-            initial={{ opacity: 0, scale: 0.5, rotate: -90 }}
-            animate={isInView ? { opacity: 1, scale: 1, rotate: 0 } : {}}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 1.5 }}
-          >
-            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-              <path d="M14 4v20M4 14h20" stroke="#1B4A4A" strokeWidth="2" strokeLinecap="round"/>
-            </svg>
-          </motion.div>
+            {/* Logo badge */}
+            <motion.div
+              className="absolute bottom-12 right-8 z-[2] w-[64px] h-[64px]"
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={isInView ? { opacity: 0.8, scale: 1 } : {}}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 1.5 }}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/images/logo.png" alt="" className="w-full h-full object-contain brightness-200 drop-shadow-lg" />
+            </motion.div>
+          </div>
         </motion.div>
 
         {/* Right: Header + Timeline */}
-        <div className="flex-1 relative pl-10">
+        <div className="flex-1 relative pl-10 py-[140px]">
           <div className="mb-12">
             <motion.p className="font-en text-[12px] tracking-[4px] text-teal uppercase font-medium"
               initial={{ opacity: 0, y: 12 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.7, delay: 0.2 }}>
