@@ -1,7 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
-
 interface NavProps {
   visible: boolean;
 }
@@ -15,16 +13,16 @@ export default function Nav({ visible }: NavProps) {
   ];
 
   return (
-    <motion.nav
+    <nav
       className="fixed top-0 left-0 right-0 z-[100] px-[5%] h-[72px] flex items-center justify-between border-b border-black/[0.04]"
       style={{
         background: "rgba(250, 250, 248, 0.85)",
         backdropFilter: "blur(20px)",
         WebkitBackdropFilter: "blur(20px)",
+        opacity: visible ? 1 : 0,
+        transform: visible ? "translateY(0)" : "translateY(-20px)",
+        transition: "opacity 0.8s ease-out, transform 0.8s ease-out",
       }}
-      initial={{ opacity: 0, y: -20 }}
-      animate={visible ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
-      transition={{ duration: 0.8, ease: "easeOut" }}
     >
       <div className="font-en text-[15px] font-medium tracking-[2px] text-dark-text uppercase">
         JP <span className="text-teal">Compliance</span>
@@ -49,6 +47,6 @@ export default function Nav({ visible }: NavProps) {
       >
         お問い合わせ
       </a>
-    </motion.nav>
+    </nav>
   );
 }

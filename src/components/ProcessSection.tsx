@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useEffect, useState } from "react";
-import { motion, useInView } from "framer-motion";
+import { useInView } from "framer-motion";
 import SplitText from "./SplitText";
 
 const steps = [
@@ -86,12 +86,14 @@ export default function ProcessSection() {
       <div ref={ref} className="max-w-container mx-auto px-12 flex gap-16 items-start relative">
 
         {/* Left: Full-section-height image */}
-        <motion.div
+        <div
           className="w-[40%] flex-shrink-0 relative overflow-hidden"
-          style={{ minHeight: "100%" }}
-          initial={{ opacity: 0, x: 50 }}
-          animate={isInView ? { opacity: 1, x: 0 } : {}}
-          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+          style={{
+            minHeight: "100%",
+            opacity: isInView ? 1 : 0,
+            transform: isInView ? "translateX(0)" : "translateX(50px)",
+            transition: "opacity 1.2s cubic-bezier(0.16,1,0.3,1), transform 1.2s cubic-bezier(0.16,1,0.3,1)",
+          }}
         >
           {/* Sticky wrapper: image stays in view while content scrolls */}
           <div className="sticky top-0 h-screen overflow-hidden">
@@ -117,25 +119,33 @@ export default function ProcessSection() {
             />
 
             {/* Logo badge */}
-            <motion.div
+            <div
               className="absolute bottom-12 right-8 z-[2] w-[64px] h-[64px]"
-              initial={{ opacity: 0, scale: 0.5 }}
-              animate={isInView ? { opacity: 0.8, scale: 1 } : {}}
-              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 1.5 }}
+              style={{
+                opacity: isInView ? 0.8 : 0,
+                transform: isInView ? "scale(1)" : "scale(0.5)",
+                transition: "opacity 0.8s cubic-bezier(0.16,1,0.3,1) 1.5s, transform 0.8s cubic-bezier(0.16,1,0.3,1) 1.5s",
+              }}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/images/logo.png" alt="" className="w-full h-full object-contain brightness-200 drop-shadow-lg" />
-            </motion.div>
+            </div>
           </div>
-        </motion.div>
+        </div>
 
         {/* Right: Header + Timeline */}
         <div className="flex-1 relative pl-10 py-[140px]">
           <div className="mb-12">
-            <motion.p className="font-en text-[12px] tracking-[4px] text-teal uppercase font-medium"
-              initial={{ opacity: 0, y: 12 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.7, delay: 0.2 }}>
+            <p
+              className="font-en text-[12px] tracking-[4px] text-teal uppercase font-medium"
+              style={{
+                opacity: isInView ? 1 : 0,
+                transform: isInView ? "translateY(0)" : "translateY(12px)",
+                transition: "opacity 0.7s ease-out 0.2s, transform 0.7s ease-out 0.2s",
+              }}
+            >
               Process
-            </motion.p>
+            </p>
             <SplitText
               text="90日で本格稼働"
               className="text-[32px] font-extralight text-dark-text leading-[1.4] mt-4 tracking-tight"
@@ -144,35 +154,66 @@ export default function ProcessSection() {
               startDelay={0.4}
               yOffset={25}
             />
-            <motion.p className="text-[15px] text-body-text leading-[1.8] mt-4"
-              initial={{ opacity: 0, y: 12 }} animate={phase >= 1 ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.7 }}>
+            <p
+              className="text-[15px] text-body-text leading-[1.8] mt-4"
+              style={{
+                opacity: phase >= 1 ? 1 : 0,
+                transform: phase >= 1 ? "translateY(0)" : "translateY(12px)",
+                transition: "opacity 0.7s ease-out, transform 0.7s ease-out",
+              }}
+            >
               審査体制開発支援の場合、NDA締結から90日で本格稼働を実現します。
-            </motion.p>
-            <motion.div className="inline-block mt-5 px-[18px] py-2 bg-teal/10 border border-teal/20 font-en text-[12px] text-teal font-medium tracking-[1.5px]"
-              initial={{ opacity: 0, y: 12 }} animate={phase >= 2 ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.7 }}>
+            </p>
+            <div
+              className="inline-block mt-5 px-[18px] py-2 bg-teal/10 border border-teal/20 font-en text-[12px] text-teal font-medium tracking-[1.5px]"
+              style={{
+                opacity: phase >= 2 ? 1 : 0,
+                transform: phase >= 2 ? "translateY(0)" : "translateY(12px)",
+                transition: "opacity 0.7s ease-out, transform 0.7s ease-out",
+              }}
+            >
               90-DAY LAUNCH
-            </motion.div>
+            </div>
           </div>
 
           <div className="relative">
-            <motion.div className="absolute -left-[35px] top-2 w-px bg-light-gray"
-              initial={{ height: 0 }} animate={isInView ? { height: "calc(100% - 16px)" } : {}}
-              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.6 }} />
-            <motion.div className="absolute -left-[35px] top-2 w-px bg-teal"
-              initial={{ height: 0 }} animate={isInView ? { height: "calc(100% - 16px)" } : {}}
-              transition={{ duration: 2.5, ease: [0.16, 1, 0.3, 1], delay: 1.0 }} />
+            <div
+              className="absolute -left-[35px] top-2 w-px bg-light-gray"
+              style={{
+                height: isInView ? "calc(100% - 16px)" : "0",
+                transition: "height 1.2s cubic-bezier(0.16,1,0.3,1) 0.6s",
+              }}
+            />
+            <div
+              className="absolute -left-[35px] top-2 w-px bg-teal"
+              style={{
+                height: isInView ? "calc(100% - 16px)" : "0",
+                transition: "height 2.5s cubic-bezier(0.16,1,0.3,1) 1.0s",
+              }}
+            />
 
             {steps.map((step, i) => (
-              <motion.div key={step.num} className="relative pb-11 last:pb-0"
-                initial={{ opacity: 0, y: 30 }} animate={phase >= 3 + i ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}>
+              <div
+                key={step.num}
+                className="relative pb-11 last:pb-0"
+                style={{
+                  opacity: phase >= 3 + i ? 1 : 0,
+                  transform: phase >= 3 + i ? "translateY(0)" : "translateY(30px)",
+                  transition: "opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1)",
+                }}
+              >
                 <div className={`absolute -left-10 top-[5px] w-[11px] h-[11px] rounded-full border-2 z-[2] transition-all duration-500 ${
                   activeStep >= i ? "border-teal bg-teal shadow-[0_0_0_4px_rgba(63,180,170,0.15)]" : "border-light-gray bg-off-white"}`} />
-                <motion.p className="font-en text-[12px] text-teal tracking-[2px] font-medium uppercase"
-                  initial={{ opacity: 0, x: -10 }} animate={phase >= 3 + i ? { opacity: 1, x: 0 } : {}}
-                  transition={{ duration: 0.5, delay: 0.1 }}>
+                <p
+                  className="font-en text-[12px] text-teal tracking-[2px] font-medium uppercase"
+                  style={{
+                    opacity: phase >= 3 + i ? 1 : 0,
+                    transform: phase >= 3 + i ? "translateX(0)" : "translateX(-10px)",
+                    transition: "opacity 0.5s ease-out 0.1s, transform 0.5s ease-out 0.1s",
+                  }}
+                >
                   Step {step.num}
-                </motion.p>
+                </p>
                 {phase >= 3 + i ? (
                   <SplitText
                     text={step.title}
@@ -186,12 +227,17 @@ export default function ProcessSection() {
                 ) : (
                   <h3 className="text-[20px] font-normal text-dark-text mt-2 opacity-0">{step.title}</h3>
                 )}
-                <motion.p className="text-[15px] text-body-text leading-[1.8] mt-2.5"
-                  initial={{ opacity: 0, y: 10 }} animate={phase >= 3 + i ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.6, ease: "easeOut" as const, delay: 0.2 }}>
+                <p
+                  className="text-[15px] text-body-text leading-[1.8] mt-2.5"
+                  style={{
+                    opacity: phase >= 3 + i ? 1 : 0,
+                    transform: phase >= 3 + i ? "translateY(0)" : "translateY(10px)",
+                    transition: "opacity 0.6s ease-out 0.2s, transform 0.6s ease-out 0.2s",
+                  }}
+                >
                   {step.desc}
-                </motion.p>
-              </motion.div>
+                </p>
+              </div>
             ))}
           </div>
         </div>

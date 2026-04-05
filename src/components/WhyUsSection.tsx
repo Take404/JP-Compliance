@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
-import { motion, useInView } from "framer-motion";
+import { useInView } from "framer-motion";
 import Image from "next/image";
 import SplitText from "./SplitText";
 
@@ -53,11 +53,13 @@ export default function WhyUsSection() {
     <section id="whyus" ref={ref} className="py-[140px] px-[5%]">
       <div className="max-w-container mx-auto flex gap-14 items-start">
         {/* Left: Image */}
-        <motion.div
+        <div
           className="flex-shrink-0 w-[48%] sticky top-[100px] overflow-hidden"
-          initial={{ opacity: 0, x: -30 }}
-          animate={isInView ? { opacity: 1, x: 0 } : {}}
-          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+          style={{
+            opacity: isInView ? 1 : 0,
+            transform: isInView ? "translateX(0)" : "translateX(-30px)",
+            transition: "opacity 1.2s cubic-bezier(0.16,1,0.3,1), transform 1.2s cubic-bezier(0.16,1,0.3,1)",
+          }}
         >
           <Image
             src="/images/whyus.png"
@@ -73,19 +75,21 @@ export default function WhyUsSection() {
           <p className="font-en text-[11px] tracking-[1px] text-body-text mt-4 opacity-50">
             Organization development &amp; compliance infrastructure
           </p>
-        </motion.div>
+        </div>
 
         {/* Right: Content — strict top-to-bottom sequential animation */}
         <div className="flex-1 pt-2">
           {/* Label */}
-          <motion.p
+          <p
             className="font-en text-[11px] tracking-[4px] text-teal uppercase font-medium"
-            initial={{ opacity: 0, y: 15 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, ease: "easeOut" as const, delay: 0.2 }}
+            style={{
+              opacity: isInView ? 1 : 0,
+              transform: isInView ? "translateY(0)" : "translateY(15px)",
+              transition: "opacity 0.7s ease-out 0.2s, transform 0.7s ease-out 0.2s",
+            }}
           >
             Why Us
-          </motion.p>
+          </p>
 
           {/* Heading: char-by-char */}
           <SplitText
@@ -119,22 +123,26 @@ export default function WhyUsSection() {
           {/* Items: each waits for the previous to appear */}
           <div className="mt-12">
             {items.map((item, i) => (
-              <motion.div
+              <div
                 key={item.num}
                 className="py-7 border-t border-light-gray last:border-b"
-                initial={{ opacity: 0, y: 30 }}
-                animate={phase >= 3 + i ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                style={{
+                  opacity: phase >= 3 + i ? 1 : 0,
+                  transform: phase >= 3 + i ? "translateY(0)" : "translateY(30px)",
+                  transition: "opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1)",
+                }}
               >
                 <div className="flex items-baseline gap-4">
-                  <motion.span
+                  <span
                     className="font-en text-[12px] text-teal tracking-[2px] font-medium"
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={phase >= 3 + i ? { opacity: 1, x: 0 } : {}}
-                    transition={{ duration: 0.5, delay: 0.1 }}
+                    style={{
+                      opacity: phase >= 3 + i ? 1 : 0,
+                      transform: phase >= 3 + i ? "translateX(0)" : "translateX(-10px)",
+                      transition: "opacity 0.5s ease-out 0.1s, transform 0.5s ease-out 0.1s",
+                    }}
                   >
                     {item.num}
-                  </motion.span>
+                  </span>
                   {phase >= 3 + i ? (
                     <SplitText
                       text={item.title}
@@ -149,30 +157,35 @@ export default function WhyUsSection() {
                     <h3 className="text-[20px] font-normal text-dark-text opacity-0">{item.title}</h3>
                   )}
                 </div>
-                <motion.p
+                <p
                   className="text-[14px] text-body-text leading-[1.8] mt-2.5 pl-10"
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={phase >= 3 + i ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.6, ease: "easeOut" as const, delay: 0.2 }}
+                  style={{
+                    opacity: phase >= 3 + i ? 1 : 0,
+                    transform: phase >= 3 + i ? "translateY(0)" : "translateY(10px)",
+                    transition: "opacity 0.6s ease-out 0.2s, transform 0.6s ease-out 0.2s",
+                  }}
                 >
                   {item.desc}
-                </motion.p>
-              </motion.div>
+                </p>
+              </div>
             ))}
           </div>
 
           {/* Comparison table: appears after all items */}
-          <motion.div
+          <div
             className="mt-12"
-            initial={{ opacity: 0, y: 30 }}
-            animate={phase >= 6 ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            style={{
+              opacity: phase >= 6 ? 1 : 0,
+              transform: phase >= 6 ? "translateY(0)" : "translateY(30px)",
+              transition: "opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1)",
+            }}
           >
-            <motion.div
+            <div
               className="flex gap-0.5 mt-3"
-              initial={{ opacity: 0 }}
-              animate={phase >= 6 ? { opacity: 1 } : {}}
-              transition={{ duration: 0.6, delay: 0.15 }}
+              style={{
+                opacity: phase >= 6 ? 1 : 0,
+                transition: "opacity 0.6s ease-out 0.15s",
+              }}
             >
               <div className="w-[140px] p-3.5 text-[13px] font-medium text-body-text" />
               <div className="flex-1 bg-[#F0EFEB] p-3.5 text-center font-en text-[11px] tracking-[1px] uppercase text-body-text">
@@ -181,12 +194,14 @@ export default function WhyUsSection() {
               <div className="flex-1 bg-teal p-3.5 text-center font-en text-[11px] tracking-[1px] uppercase text-white font-medium">
                 JP Compliance
               </div>
-            </motion.div>
-            <motion.div
+            </div>
+            <div
               className="flex gap-0.5"
-              initial={{ opacity: 0, y: 15 }}
-              animate={phase >= 6 ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.7, ease: "easeOut" as const, delay: 0.3 }}
+              style={{
+                opacity: phase >= 6 ? 1 : 0,
+                transform: phase >= 6 ? "translateY(0)" : "translateY(15px)",
+                transition: "opacity 0.7s ease-out 0.3s, transform 0.7s ease-out 0.3s",
+              }}
             >
               <div className="w-[140px] p-3.5 text-[13px] font-medium text-body-text">対応範囲</div>
               <div className="flex-1 bg-[#F0EFEB] p-3.5 text-[13px] text-body-text leading-[1.5]">
@@ -195,8 +210,8 @@ export default function WhyUsSection() {
               <div className="flex-1 bg-teal p-3.5 text-[13px] text-white font-medium leading-[1.5]">
                 資材審査 + プロセス設計 + システム構築 + 組織開発 + 包括的助言
               </div>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
         </div>
       </div>
     </section>

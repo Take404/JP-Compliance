@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { useInView } from "framer-motion";
 
 const services = [
   {
@@ -95,36 +95,38 @@ export default function ServicesSection() {
       <div className="max-w-container mx-auto px-12">
         {/* Header */}
         <div className="text-center mb-16">
-          <motion.p
+          <p
             className="font-en text-[14px] tracking-[5px] text-teal uppercase font-medium"
-            initial={{ opacity: 0, y: 12 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7 }}
+            style={{
+              opacity: isInView ? 1 : 0,
+              transform: isInView ? "translateY(0)" : "translateY(12px)",
+              transition: "opacity 0.7s ease-out, transform 0.7s ease-out",
+            }}
           >
             Services
-          </motion.p>
-          <motion.h2
+          </p>
+          <h2
             className="text-[40px] font-extralight text-dark-text leading-[1.4] mt-5 tracking-tight"
-            initial={{ opacity: 0, y: 15 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
+            style={{
+              opacity: isInView ? 1 : 0,
+              transform: isInView ? "translateY(0)" : "translateY(15px)",
+              transition: "opacity 0.8s cubic-bezier(0.16,1,0.3,1) 0.2s, transform 0.8s cubic-bezier(0.16,1,0.3,1) 0.2s",
+            }}
           >
             支援内容
-          </motion.h2>
+          </h2>
         </div>
 
         {/* Cards grid: 3 columns, 2 rows */}
         <div className="grid grid-cols-3 gap-6">
           {services.map((svc, i) => (
-            <motion.div
+            <div
               key={svc.num}
               className="group relative overflow-hidden cursor-pointer"
-              initial={{ opacity: 0, y: 40 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{
-                duration: 0.8,
-                ease: [0.16, 1, 0.3, 1],
-                delay: 0.5 + i * 0.25,
+              style={{
+                opacity: isInView ? 1 : 0,
+                transform: isInView ? "translateY(0)" : "translateY(40px)",
+                transition: `opacity 0.8s cubic-bezier(0.16,1,0.3,1) ${0.5 + i * 0.25}s, transform 0.8s cubic-bezier(0.16,1,0.3,1) ${0.5 + i * 0.25}s`,
               }}
             >
               {/* Image - grayscale by default, color on hover */}
@@ -171,7 +173,7 @@ export default function ServicesSection() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

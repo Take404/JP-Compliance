@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { useInView } from "framer-motion";
 import Image from "next/image";
 
 const navLinks = [
@@ -15,10 +15,10 @@ export default function CtaSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
 
-  const fadeUp = (delay: number) => ({
-    initial: { opacity: 0, y: 12 } as const,
-    animate: isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 },
-    transition: { duration: 0.7, ease: "easeOut" as const, delay },
+  const fadeUpStyle = (delay: number) => ({
+    opacity: isInView ? 1 : 0,
+    transform: isInView ? "translateY(0)" : "translateY(12px)",
+    transition: `opacity 0.7s ease-out ${delay}s, transform 0.7s ease-out ${delay}s`,
   });
 
   return (
@@ -28,34 +28,51 @@ export default function CtaSection() {
 
       <div className="pt-[160px] pb-[140px] relative z-[1]">
         <div className="max-w-container mx-auto px-12 text-center">
-          <motion.div className="w-[100px] mx-auto mb-12"
-            initial={{ opacity: 0, scale: 0.8 }} animate={isInView ? { opacity: 0.6, scale: 1 } : {}}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}>
+          <div
+            className="w-[100px] mx-auto mb-12"
+            style={{
+              opacity: isInView ? 0.6 : 0,
+              transform: isInView ? "scale(1)" : "scale(0.8)",
+              transition: "opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1)",
+            }}
+          >
             <Image src="/images/logo.png" alt="JP Compliance" width={100} height={100} className="w-full brightness-200" />
-          </motion.div>
+          </div>
 
-          <motion.p className="font-en text-[13px] tracking-[4px] text-teal uppercase font-medium" {...fadeUp(0.3)}>Contact</motion.p>
-          <motion.h2 className="text-[48px] font-extralight text-white leading-[1.35] mt-6 tracking-tight" {...fadeUp(0.5)}>
+          <p className="font-en text-[13px] tracking-[4px] text-teal uppercase font-medium" style={fadeUpStyle(0.3)}>Contact</p>
+          <h2 className="text-[48px] font-extralight text-white leading-[1.35] mt-6 tracking-tight" style={fadeUpStyle(0.5)}>
             まずはご相談ください。
-          </motion.h2>
-          <motion.p className="text-[18px] text-white/60 leading-[1.8] mt-5" {...fadeUp(0.7)}>
+          </h2>
+          <p className="text-[18px] text-white/60 leading-[1.8] mt-5" style={fadeUpStyle(0.7)}>
             貴社の課題に合わせた最適な支援プランをご提案いたします。
-          </motion.p>
-          <motion.a href="mailto:contact@jp-compliance.co.jp"
+          </p>
+          <a
+            href="mailto:contact@jp-compliance.co.jp"
             className="inline-block mt-11 px-14 py-5 text-[16px] font-medium text-teal-deep bg-teal hover:bg-[#4DC4BA] hover:shadow-[0_8px_32px_rgba(63,180,170,0.25)] transition-all duration-400 relative overflow-hidden group"
-            {...fadeUp(1.0)}>
+            style={fadeUpStyle(1.0)}
+          >
             <span className="relative z-[1]">お問い合わせ →</span>
             <span className="absolute top-0 -left-full w-[60%] h-full bg-gradient-to-r from-transparent via-white/15 to-transparent group-hover:left-[120%] transition-[left] duration-600" />
-          </motion.a>
+          </a>
 
-          <motion.div className="h-px bg-teal/20 mx-auto mt-20"
-            initial={{ width: 0 }} animate={isInView ? { width: "100%" } : {}}
-            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 1.4 }} style={{ maxWidth: 800 }} />
+          <div
+            className="h-px bg-teal/20 mx-auto mt-20"
+            style={{
+              width: isInView ? "100%" : 0,
+              maxWidth: 800,
+              transition: "width 1s cubic-bezier(0.16,1,0.3,1) 1.4s",
+            }}
+          />
         </div>
       </div>
 
-      <motion.footer className="pb-11 pt-14 relative z-[1]"
-        initial={{ opacity: 0 }} animate={isInView ? { opacity: 1 } : {}} transition={{ duration: 0.8, delay: 1.8 }}>
+      <footer
+        className="pb-11 pt-14 relative z-[1]"
+        style={{
+          opacity: isInView ? 1 : 0,
+          transition: "opacity 0.8s ease-out 1.8s",
+        }}
+      >
         <div className="max-w-container mx-auto px-12">
           <div className="flex justify-between items-start mb-10">
             <div className="flex items-center gap-3">
@@ -78,7 +95,7 @@ export default function CtaSection() {
             </div>
           </div>
         </div>
-      </motion.footer>
+      </footer>
     </section>
   );
 }

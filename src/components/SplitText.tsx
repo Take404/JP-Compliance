@@ -31,7 +31,7 @@ export default function SplitText({
   return (
     <Tag ref={ref} className={className} aria-label={text.replace(/\n/g, " ")}>
       {lines.map((line, lineIdx) => (
-        <span key={lineIdx} className="block overflow-hidden" aria-hidden="true">
+        <span key={lineIdx} className="block" style={{ overflow: "clip" }} aria-hidden="true">
           <span className="inline-block">
             {line.split("").map((char) => {
               const currentIndex = charIndex++;

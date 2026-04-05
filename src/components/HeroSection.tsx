@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
 import Image from "next/image";
 import Nav from "./Nav";
 
@@ -25,11 +24,13 @@ export default function HeroSection() {
 
       <section className="min-h-screen flex items-center relative overflow-hidden px-[5%]">
         {/* Background image */}
-        <motion.div
+        <div
           className="absolute top-0 right-0 w-[70%] h-full"
-          initial={{ opacity: 0, scale: 1.03 }}
-          animate={phase >= 3 ? { opacity: 1, scale: 1 } : {}}
-          transition={{ duration: 1.6, ease: "easeOut" }}
+          style={{
+            opacity: phase >= 3 ? 1 : 0,
+            transform: phase >= 3 ? "scale(1)" : "scale(1.03)",
+            transition: "opacity 1.6s ease-out, transform 1.6s ease-out",
+          }}
         >
           <Image
             src="/images/hero-bg.png"
@@ -42,82 +43,94 @@ export default function HeroSection() {
             }}
             priority
           />
-        </motion.div>
+        </div>
 
         {/* Content */}
         <div className="relative z-[2] max-w-[520px] pt-[72px]">
-          <motion.p
+          <p
             className="font-en text-[11px] tracking-[4px] text-teal uppercase font-medium"
-            initial={{ opacity: 0, y: 20 }}
-            animate={phase >= 2 ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            style={{
+              opacity: phase >= 2 ? 1 : 0,
+              transform: phase >= 2 ? "translateY(0)" : "translateY(20px)",
+              transition: "opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1)",
+            }}
           >
             Pharmaceutical Compliance Partner
-          </motion.p>
+          </p>
 
           <h1 className="text-[52px] font-extralight text-dark-text leading-[1.2] tracking-tight mt-5 overflow-hidden">
-            <motion.span
+            <span
               className="block"
-              initial={{ opacity: 0, y: 40 }}
-              animate={phase >= 1 ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+              style={{
+                opacity: phase >= 1 ? 1 : 0,
+                transform: phase >= 1 ? "translateY(0)" : "translateY(40px)",
+                transition: "opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1)",
+              }}
             >
               規制を、
-            </motion.span>
-            <motion.span
+            </span>
+            <span
               className="block"
-              initial={{ opacity: 0, y: 40 }}
-              animate={phase >= 1 ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
+              style={{
+                opacity: phase >= 1 ? 1 : 0,
+                transform: phase >= 1 ? "translateY(0)" : "translateY(40px)",
+                transition: "opacity 0.9s cubic-bezier(0.16,1,0.3,1) 0.15s, transform 0.9s cubic-bezier(0.16,1,0.3,1) 0.15s",
+              }}
             >
               戦略に変える。
-            </motion.span>
+            </span>
           </h1>
 
-          <motion.div
+          <div
             className="h-[2px] bg-teal mt-7"
-            initial={{ width: 0 }}
-            animate={phase >= 2 ? { width: 48 } : {}}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            style={{
+              width: phase >= 2 ? 48 : 0,
+              transition: "width 0.6s cubic-bezier(0.16,1,0.3,1)",
+            }}
           />
 
-          <motion.p
+          <p
             className="text-[16px] font-light text-body-text leading-[1.85] mt-6"
-            initial={{ opacity: 0, y: 20 }}
-            animate={phase >= 2 ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            style={{
+              opacity: phase >= 2 ? 1 : 0,
+              transform: phase >= 2 ? "translateY(0)" : "translateY(20px)",
+              transition: "opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1)",
+            }}
           >
             製薬企業のコンプライアンス体制を、資材審査から
             <br />
             組織設計まで包括的に支援します。
-          </motion.p>
+          </p>
 
-          <motion.a
+          <a
             href="#contact"
             className="inline-flex items-center gap-3 mt-10 text-[14px] text-dark-text hover:text-teal transition-colors duration-300 cursor-pointer group"
-            initial={{ opacity: 0, y: 20 }}
-            animate={phase >= 4 ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7 }}
+            style={{
+              opacity: phase >= 4 ? 1 : 0,
+              transform: phase >= 4 ? "translateY(0)" : "translateY(20px)",
+              transition: "opacity 0.7s ease-out, transform 0.7s ease-out",
+            }}
           >
             ご相談はこちら
             <span className="inline-block w-8 h-px bg-teal relative group-hover:w-12 transition-all duration-300">
               <span className="absolute right-0 -top-[3px] w-2 h-2 border-r border-t border-teal rotate-45" />
             </span>
-          </motion.a>
+          </a>
         </div>
 
         {/* Scroll indicator */}
-        <motion.div
+        <div
           className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-          initial={{ opacity: 0 }}
-          animate={phase >= 5 ? { opacity: 1 } : {}}
-          transition={{ duration: 0.8 }}
+          style={{
+            opacity: phase >= 5 ? 1 : 0,
+            transition: "opacity 0.8s ease-out",
+          }}
         >
           <span className="font-en text-[10px] tracking-[2px] text-body-text uppercase">
             Scroll
           </span>
           <div className="w-px h-10 bg-gradient-to-b from-teal to-transparent animate-pulse" />
-        </motion.div>
+        </div>
       </section>
     </>
   );

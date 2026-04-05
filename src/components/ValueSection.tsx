@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { useInView } from "framer-motion";
 import Image from "next/image";
 import CountUp from "./CountUp";
 
@@ -22,10 +22,10 @@ export default function ValueSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
-  const fadeUp = (delay: number) => ({
-    initial: { opacity: 0, y: 12 } as const,
-    animate: isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 },
-    transition: { duration: 0.7, ease: "easeOut" as const, delay },
+  const fadeUpStyle = (delay: number) => ({
+    opacity: isInView ? 1 : 0,
+    transform: isInView ? "translateY(0)" : "translateY(12px)",
+    transition: `opacity 0.7s ease-out ${delay}s, transform 0.7s ease-out ${delay}s`,
   });
 
   return (
@@ -37,58 +37,64 @@ export default function ValueSection() {
         }}
       />
 
-      <motion.div
+      <div
         className="absolute right-[2%] top-1/2 -translate-y-1/2 w-[380px] h-[420px] pointer-events-none"
-        initial={{ opacity: 0 }}
-        animate={isInView ? { opacity: 1 } : {}}
-        transition={{ duration: 2, delay: 1.5 }}
+        style={{
+          opacity: isInView ? 1 : 0,
+          transition: "opacity 2s ease-out 1.5s",
+        }}
       >
         <Image src="/images/logo.png" alt="" fill className="object-contain opacity-[0.08] brightness-150" />
-      </motion.div>
+      </div>
 
       <div className="max-w-container mx-auto px-12 w-full relative z-[1]">
         <div className="grid grid-cols-[7fr_5fr] gap-20 items-start">
           <div className="pt-3">
-            <motion.p className="font-en text-[12px] tracking-[4px] text-teal uppercase font-medium" {...fadeUp(0)}>Our Position</motion.p>
-            <motion.div className="text-[64px] leading-none text-teal mt-8 opacity-40" {...fadeUp(0.3)}>&ldquo;</motion.div>
+            <p className="font-en text-[12px] tracking-[4px] text-teal uppercase font-medium" style={fadeUpStyle(0)}>Our Position</p>
+            <div className="text-[64px] leading-none text-teal mt-8 opacity-40" style={fadeUpStyle(0.3)}>&ldquo;</div>
             <div className="mt-4">
               {quoteLines.map((line, i) => (
-                <motion.p
+                <p
                   key={i}
                   className={`text-[34px] font-extralight leading-[1.6] ${line.emphasis ? "text-teal font-light" : "text-white"}`}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={isInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.4 + i * 0.2 }}
+                  style={{
+                    opacity: isInView ? 1 : 0,
+                    transform: isInView ? "translateY(0)" : "translateY(20px)",
+                    transition: `opacity 0.8s cubic-bezier(0.16,1,0.3,1) ${0.4 + i * 0.2}s, transform 0.8s cubic-bezier(0.16,1,0.3,1) ${0.4 + i * 0.2}s`,
+                  }}
                 >
                   {line.text}
-                </motion.p>
+                </p>
               ))}
             </div>
-            <motion.div
+            <div
               className="h-px bg-teal my-11"
-              initial={{ width: 0 }}
-              animate={isInView ? { width: 48 } : {}}
-              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 1.3 }}
+              style={{
+                width: isInView ? 48 : 0,
+                transition: "width 0.8s cubic-bezier(0.16,1,0.3,1) 1.3s",
+              }}
             />
-            <motion.p className="text-[17px] text-white/75 leading-[1.9]" {...fadeUp(1.5)}>
+            <p className="text-[17px] text-white/75 leading-[1.9]" style={fadeUpStyle(1.5)}>
               実務レベルの資材審査代行は外部委託が可能である一方、経営・組織・ガバナンスの観点から資材審査を&ldquo;仕組みとして構築し、定着させる&rdquo;支援は市場にほぼ存在しない構造的な空白があります。
-            </motion.p>
-            <motion.div className="mt-8" {...fadeUp(1.8)}>
+            </p>
+            <div className="mt-8" style={fadeUpStyle(1.8)}>
               <p className="text-[18px] text-white/90 leading-[1.85]">
                 法令遵守と表現の戦略性を両立させ、資材を<br />
                 <span className="text-teal font-normal">「制約の産物」ではなく「価値創出の手段」</span>として機能させる。
               </p>
-            </motion.div>
+            </div>
           </div>
 
           <div className="flex flex-col gap-7 pt-[60px]">
             {stats.map((stat, i) => (
-              <motion.div
+              <div
                 key={stat.suffix}
                 className="bg-white/[0.04] border border-teal/10 p-9 relative overflow-hidden cursor-default group hover:bg-teal/[0.08] hover:border-teal/25 transition-all duration-400"
-                initial={{ opacity: 0, x: 20 }}
-                animate={isInView ? { opacity: 1, x: 0 } : {}}
-                transition={{ duration: 0.7, delay: 1.0 + i * 0.3 }}
+                style={{
+                  opacity: isInView ? 1 : 0,
+                  transform: isInView ? "translateX(0)" : "translateX(20px)",
+                  transition: `opacity 0.7s ease-out ${1.0 + i * 0.3}s, transform 0.7s ease-out ${1.0 + i * 0.3}s`,
+                }}
               >
                 <div className="absolute left-0 top-0 w-[3px] h-full bg-teal scale-y-0 origin-top group-hover:scale-y-100 transition-transform duration-400" style={{ transitionTimingFunction: "cubic-bezier(0.16,1,0.3,1)" }} />
                 <div className="grid grid-cols-[140px_1fr] items-baseline gap-5 relative z-[1]">
@@ -100,7 +106,7 @@ export default function ValueSection() {
                     <p className="text-[14px] text-white/40 mt-1">{stat.desc}</p>
                   </div>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
