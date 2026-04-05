@@ -16,9 +16,9 @@ export default function TrackSection() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section ref={ref} className="py-[160px]">
-      <div className="max-w-container mx-auto px-12">
-        <div className="text-center mb-24">
+    <section ref={ref} className="py-[100px] md:py-[130px] lg:py-[160px]">
+      <div className="max-w-container mx-auto px-5 md:px-8 lg:px-12">
+        <div className="text-center mb-16 md:mb-24">
           <p
             className="font-en text-[14px] tracking-[5px] text-teal uppercase font-medium"
             style={{
@@ -30,7 +30,7 @@ export default function TrackSection() {
             Track Record
           </p>
           <h2
-            className="text-[40px] font-extralight text-dark-text leading-[1.4] mt-5 tracking-tight"
+            className="text-[32px] md:text-[36px] lg:text-[40px] font-extralight text-dark-text leading-[1.4] mt-5 tracking-tight"
             style={{
               opacity: isInView ? 1 : 0,
               transform: isInView ? "translateY(0)" : "translateY(15px)",
@@ -41,35 +41,40 @@ export default function TrackSection() {
           </h2>
         </div>
 
-        <div className="grid grid-cols-4 gap-0">
+        {/* 2x2 grid on mobile, 4 columns on tablet and up */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-0">
           {stats.map((stat, i) => (
             <div
               key={stat.desc}
-              className={`text-center py-16 px-8 relative ${i > 0 ? "before:absolute before:left-0 before:top-[20%] before:h-[60%] before:w-px before:bg-light-gray" : ""}`}
+              className={`text-center py-10 md:py-16 px-4 md:px-8 relative
+                ${i % 2 !== 0 ? "before:absolute before:left-0 before:top-[20%] before:h-[60%] before:w-px before:bg-light-gray" : ""}
+                ${i >= 2 ? "border-t border-light-gray md:border-t-0" : ""}
+                ${i > 0 && i % 2 === 0 ? "md:before:absolute md:before:left-0 md:before:top-[20%] md:before:h-[60%] md:before:w-px md:before:bg-light-gray" : ""}
+              `}
               style={{
                 opacity: isInView ? 1 : 0,
                 transform: isInView ? "translateY(0)" : "translateY(30px)",
                 transition: `opacity 0.8s cubic-bezier(0.16,1,0.3,1) ${0.4 + i * 0.2}s, transform 0.8s cubic-bezier(0.16,1,0.3,1) ${0.4 + i * 0.2}s`,
               }}
             >
-              <div className="font-en text-[72px] font-extralight text-dark-text tracking-tight leading-none">
+              <div className="font-en text-[48px] md:text-[60px] lg:text-[72px] font-extralight text-dark-text tracking-tight leading-none">
                 <CountUp target={stat.target} decimals={stat.decimals} suffix={stat.suffix} duration={1200} />
               </div>
               <div
-                className="h-[2px] bg-teal mx-auto mt-5"
+                className="h-[2px] bg-teal mx-auto mt-4 md:mt-5"
                 style={{
                   width: isInView ? 36 : 0,
                   transition: `width 0.6s cubic-bezier(0.16,1,0.3,1) ${0.8 + i * 0.2}s`,
                 }}
               />
-              <p className="text-[16px] text-body-text leading-[1.7] mt-5 whitespace-pre-line">{stat.desc}</p>
-              <p className="font-en text-[13px] text-teal tracking-[1px] mt-3 opacity-70">{stat.year}</p>
+              <p className="text-[13px] md:text-[15px] lg:text-[16px] text-body-text leading-[1.7] mt-4 md:mt-5 whitespace-pre-line">{stat.desc}</p>
+              <p className="font-en text-[12px] md:text-[13px] text-teal tracking-[1px] mt-2 md:mt-3 opacity-70">{stat.year}</p>
             </div>
           ))}
         </div>
 
         <p
-          className="text-center mt-16 text-[14px] text-body-text opacity-50"
+          className="text-center mt-10 md:mt-16 text-[13px] md:text-[14px] text-body-text opacity-50"
           style={{
             opacity: isInView ? 0.5 : 0,
             transform: isInView ? "translateY(0)" : "translateY(10px)",

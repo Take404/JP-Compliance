@@ -83,20 +83,19 @@ export default function ProcessSection() {
 
   return (
     <section id="process" ref={sectionRef} className="relative">
-      <div ref={ref} className="max-w-container mx-auto px-12 flex gap-16 items-start relative">
+      <div ref={ref} className="max-w-container mx-auto px-5 md:px-8 lg:px-12 flex flex-col lg:flex-row gap-0 lg:gap-16 items-start relative">
 
-        {/* Left: Full-section-height image */}
+        {/* Image — full width on mobile/tablet, left column on desktop */}
         <div
-          className="w-[40%] flex-shrink-0 relative overflow-hidden"
+          className="w-full lg:w-[40%] lg:flex-shrink-0 relative overflow-hidden"
           style={{
-            minHeight: "100%",
             opacity: isInView ? 1 : 0,
             transform: isInView ? "translateX(0)" : "translateX(50px)",
             transition: "opacity 1.2s cubic-bezier(0.16,1,0.3,1), transform 1.2s cubic-bezier(0.16,1,0.3,1)",
           }}
         >
-          {/* Sticky wrapper: image stays in view while content scrolls */}
-          <div className="sticky top-0 h-screen overflow-hidden">
+          {/* On desktop: sticky full-height. On mobile/tablet: fixed height */}
+          <div className="relative h-[280px] md:h-[380px] lg:sticky lg:top-0 lg:h-screen overflow-hidden">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               ref={imgRef}
@@ -120,7 +119,7 @@ export default function ProcessSection() {
 
             {/* Logo badge */}
             <div
-              className="absolute bottom-12 right-8 z-[2] w-[64px] h-[64px]"
+              className="absolute bottom-8 lg:bottom-12 right-8 z-[2] w-[48px] h-[48px] lg:w-[64px] lg:h-[64px]"
               style={{
                 opacity: isInView ? 0.8 : 0,
                 transform: isInView ? "scale(1)" : "scale(0.5)",
@@ -134,7 +133,7 @@ export default function ProcessSection() {
         </div>
 
         {/* Right: Header + Timeline */}
-        <div className="flex-1 relative pl-10 py-[140px]">
+        <div className="flex-1 relative pl-0 lg:pl-10 py-[80px] md:py-[100px] lg:py-[140px]">
           <div className="mb-12">
             <p
               className="font-en text-[12px] tracking-[4px] text-teal uppercase font-medium"

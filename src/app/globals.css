@@ -44,6 +44,25 @@ section {
   contain-intrinsic-size: 0 800px;
 }
 
+/* ===== Responsive overrides ===== */
+@media (max-width: 1024px) {
+  #process {
+    contain-intrinsic-size: 0 1200px;
+  }
+}
+
+@media (max-width: 767px) {
+  section {
+    /* Relax containment on mobile to allow overflow for sticky-free layouts */
+    contain: layout style;
+  }
+
+  #services,
+  #process {
+    contain-intrinsic-size: 0 1600px;
+  }
+}
+
 body {
   font-synthesis: none;
   text-rendering: optimizeLegibility;

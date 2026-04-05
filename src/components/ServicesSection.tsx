@@ -91,10 +91,10 @@ export default function ServicesSection() {
   const isInView = useInView(ref, { once: true, margin: "-50px" });
 
   return (
-    <section id="services" ref={ref} className="py-[140px] bg-off-white">
-      <div className="max-w-container mx-auto px-12">
+    <section id="services" ref={ref} className="py-[100px] md:py-[120px] lg:py-[140px] bg-off-white">
+      <div className="max-w-container mx-auto px-5 md:px-8 lg:px-12">
         {/* Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-12 md:mb-16">
           <p
             className="font-en text-[14px] tracking-[5px] text-teal uppercase font-medium"
             style={{
@@ -106,7 +106,7 @@ export default function ServicesSection() {
             Services
           </p>
           <h2
-            className="text-[40px] font-extralight text-dark-text leading-[1.4] mt-5 tracking-tight"
+            className="text-[32px] md:text-[36px] lg:text-[40px] font-extralight text-dark-text leading-[1.4] mt-5 tracking-tight"
             style={{
               opacity: isInView ? 1 : 0,
               transform: isInView ? "translateY(0)" : "translateY(15px)",
@@ -117,8 +117,8 @@ export default function ServicesSection() {
           </h2>
         </div>
 
-        {/* Cards grid: 3 columns, 2 rows */}
-        <div className="grid grid-cols-3 gap-6">
+        {/* Cards grid: 1 col mobile, 2 col tablet, 3 col desktop */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
           {services.map((svc, i) => (
             <div
               key={svc.num}

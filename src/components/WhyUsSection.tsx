@@ -50,11 +50,11 @@ export default function WhyUsSection() {
   }, [isInView]);
 
   return (
-    <section id="whyus" ref={ref} className="py-[140px] px-[5%]">
-      <div className="max-w-container mx-auto flex gap-14 items-start">
-        {/* Left: Image */}
+    <section id="whyus" ref={ref} className="py-[80px] md:py-[110px] lg:py-[140px] px-[5%]">
+      <div className="max-w-container mx-auto flex flex-col lg:flex-row gap-10 lg:gap-14 items-start">
+        {/* Left: Image — full width on mobile/tablet, fixed width on desktop */}
         <div
-          className="flex-shrink-0 w-[48%] sticky top-[100px] overflow-hidden"
+          className="w-full lg:w-[48%] lg:flex-shrink-0 lg:sticky lg:top-[100px] overflow-hidden"
           style={{
             opacity: isInView ? 1 : 0,
             transform: isInView ? "translateX(0)" : "translateX(-30px)",
@@ -187,11 +187,11 @@ export default function WhyUsSection() {
                 transition: "opacity 0.6s ease-out 0.15s",
               }}
             >
-              <div className="w-[140px] p-3.5 text-[13px] font-medium text-body-text" />
-              <div className="flex-1 bg-[#F0EFEB] p-3.5 text-center font-en text-[11px] tracking-[1px] uppercase text-body-text">
+              <div className="w-[100px] md:w-[140px] p-3 md:p-3.5 text-[13px] font-medium text-body-text" />
+              <div className="flex-1 bg-[#F0EFEB] p-3 md:p-3.5 text-center font-en text-[10px] md:text-[11px] tracking-[1px] uppercase text-body-text">
                 外部委託機関
               </div>
-              <div className="flex-1 bg-teal p-3.5 text-center font-en text-[11px] tracking-[1px] uppercase text-white font-medium">
+              <div className="flex-1 bg-teal p-3 md:p-3.5 text-center font-en text-[10px] md:text-[11px] tracking-[1px] uppercase text-white font-medium">
                 JP Compliance
               </div>
             </div>
@@ -203,11 +203,11 @@ export default function WhyUsSection() {
                 transition: "opacity 0.7s ease-out 0.3s, transform 0.7s ease-out 0.3s",
               }}
             >
-              <div className="w-[140px] p-3.5 text-[13px] font-medium text-body-text">対応範囲</div>
-              <div className="flex-1 bg-[#F0EFEB] p-3.5 text-[13px] text-body-text leading-[1.5]">
+              <div className="w-[100px] md:w-[140px] p-3 md:p-3.5 text-[12px] md:text-[13px] font-medium text-body-text">対応範囲</div>
+              <div className="flex-1 bg-[#F0EFEB] p-3 md:p-3.5 text-[12px] md:text-[13px] text-body-text leading-[1.5]">
                 資材審査受託のみ
               </div>
-              <div className="flex-1 bg-teal p-3.5 text-[13px] text-white font-medium leading-[1.5]">
+              <div className="flex-1 bg-teal p-3 md:p-3.5 text-[12px] md:text-[13px] text-white font-medium leading-[1.5]">
                 資材審査 + プロセス設計 + システム構築 + 組織開発 + 包括的助言
               </div>
             </div>

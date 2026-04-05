@@ -22,10 +22,10 @@ export default function HeroSection() {
     <>
       <Nav visible={phase >= 4} />
 
-      <section className="min-h-screen flex items-center relative overflow-hidden px-[5%]">
-        {/* Background image */}
+      <section className="min-h-screen flex items-center relative overflow-hidden px-[5%] py-[72px] md:py-0">
+        {/* Background image — full width on mobile, right-side on desktop */}
         <div
-          className="absolute top-0 right-0 w-[70%] h-full"
+          className="absolute top-0 right-0 w-full lg:w-[70%] h-full"
           style={{
             opacity: phase >= 3 ? 1 : 0,
             transform: phase >= 3 ? "scale(1)" : "scale(1.03)",
@@ -38,15 +38,15 @@ export default function HeroSection() {
             fill
             className="object-cover"
             style={{
-              maskImage: "linear-gradient(to left, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.6) 40%, rgba(0,0,0,0.2) 70%, transparent 100%)",
-              WebkitMaskImage: "linear-gradient(to left, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.6) 40%, rgba(0,0,0,0.2) 70%, transparent 100%)",
+              maskImage: "linear-gradient(to left, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.6) 40%, rgba(0,0,0,0.35) 70%, rgba(0,0,0,0.15) 100%)",
+              WebkitMaskImage: "linear-gradient(to left, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.6) 40%, rgba(0,0,0,0.35) 70%, rgba(0,0,0,0.15) 100%)",
             }}
             priority
           />
         </div>
 
         {/* Content */}
-        <div className="relative z-[2] max-w-[520px] pt-[72px]">
+        <div className="relative z-[2] w-full max-w-[520px] pt-[72px] md:pt-[72px] lg:pt-[72px]">
           <p
             className="font-en text-[11px] tracking-[4px] text-teal uppercase font-medium"
             style={{
@@ -58,7 +58,7 @@ export default function HeroSection() {
             Pharmaceutical Compliance Partner
           </p>
 
-          <h1 className="text-[52px] font-extralight text-dark-text leading-[1.2] tracking-tight mt-5 overflow-hidden">
+          <h1 className="text-[36px] md:text-[44px] lg:text-[52px] font-extralight text-dark-text leading-[1.2] tracking-tight mt-5 overflow-hidden">
             <span
               className="block"
               style={{
@@ -90,7 +90,7 @@ export default function HeroSection() {
           />
 
           <p
-            className="text-[16px] font-light text-body-text leading-[1.85] mt-6"
+            className="text-[15px] md:text-[16px] font-light text-body-text leading-[1.85] mt-6 w-full"
             style={{
               opacity: phase >= 2 ? 1 : 0,
               transform: phase >= 2 ? "translateY(0)" : "translateY(20px)",
@@ -98,13 +98,13 @@ export default function HeroSection() {
             }}
           >
             製薬企業のコンプライアンス体制を、資材審査から
-            <br />
+            <br className="hidden md:block" />
             組織設計まで包括的に支援します。
           </p>
 
           <a
             href="#contact"
-            className="inline-flex items-center gap-3 mt-10 text-[14px] text-dark-text hover:text-teal transition-colors duration-300 cursor-pointer group"
+            className="inline-flex items-center gap-3 mt-8 md:mt-10 text-[14px] text-dark-text hover:text-teal transition-colors duration-300 cursor-pointer group"
             style={{
               opacity: phase >= 4 ? 1 : 0,
               transform: phase >= 4 ? "translateY(0)" : "translateY(20px)",

@@ -1,10 +1,14 @@
 "use client";
 
+import { useState } from "react";
+
 interface NavProps {
   visible: boolean;
 }
 
 export default function Nav({ visible }: NavProps) {
+  const [menuOpen, setMenuOpen] = useState(false);
+
   const links = [
     { label: "Services", href: "#services" },
     { label: "Why Us", href: "#whyus" },
@@ -28,7 +32,8 @@ export default function Nav({ visible }: NavProps) {
         JP <span className="text-teal">Compliance</span>
       </div>
 
-      <div className="flex gap-9">
+      {/* Desktop nav links */}
+      <div className="hidden md:flex gap-9">
         {links.map((link) => (
           <a
             key={link.href}
@@ -41,12 +46,72 @@ export default function Nav({ visible }: NavProps) {
         ))}
       </div>
 
+      {/* Desktop CTA */}
       <a
         href="#contact"
-        className="font-jp text-[13px] text-off-white bg-teal px-6 py-2.5 hover:bg-teal-dark transition-colors duration-300"
+        className="hidden md:inline-block font-jp text-[13px] text-off-white bg-teal px-6 py-2.5 hover:bg-teal-dark transition-colors duration-300"
       >
         お問い合わせ
       </a>
+
+      {/* Mobile: CTA (smaller) + Hamburger */}
+      <div className="flex md:hidden items-center gap-3">
+        <a
+          href="#contact"
+          className="font-jp text-[12px] text-off-white bg-teal px-4 py-2 hover:bg-teal-dark transition-colors duration-300"
+        >
+          お問い合わせ
+        </a>
+        <button
+          onClick={() => setMenuOpen(!menuOpen)}
+          className="flex flex-col justify-center items-center w-9 h-9 gap-[5px] focus:outline-none"
+          aria-label="Toggle menu"
+        >
+          <span
+            className="block w-5 h-px bg-dark-text transition-all duration-300"
+            style={{
+              transform: menuOpen ? "translateY(6px) rotate(45deg)" : "none",
+            }}
+          />
+          <span
+            className="block w-5 h-px bg-dark-text transition-all duration-300"
+            style={{
+              opacity: menuOpen ? 0 : 1,
+            }}
+          />
+          <span
+            className="block w-5 h-px bg-dark-text transition-all duration-300"
+            style={{
+              transform: menuOpen ? "translateY(-6px) rotate(-45deg)" : "none",
+            }}
+          />
+        </button>
+      </div>
+
+      {/* Mobile dropdown menu */}
+      <div
+        className="absolute top-[72px] left-0 right-0 md:hidden border-b border-black/[0.06] overflow-hidden transition-all duration-300"
+        style={{
+          background: "rgba(250, 250, 248, 0.97)",
+          backdropFilter: "blur(20px)",
+          WebkitBackdropFilter: "blur(20px)",
+          maxHeight: menuOpen ? "240px" : "0",
+          opacity: menuOpen ? 1 : 0,
+        }}
+      >
+        <div className="px-[5%] py-4 flex flex-col gap-0">
+          {links.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              onClick={() => setMenuOpen(false)}
+              className="font-en text-[14px] text-body-text hover:text-dark-text hover:text-teal transition-colors duration-300 py-3.5 border-b border-light-gray/60 last:border-b-0"
+            >
+              {link.label}
+            </a>
+          ))}
+        </div>
+      </div>
     </nav>
   );
 }
