@@ -50,30 +50,30 @@ export default function ProcessSection() {
   }, [isInView]);
 
   useEffect(() => {
+    let ticking = false;
+
     const handleScroll = () => {
-      if (!sectionRef.current || !imgRef.current) return;
-      const rect = sectionRef.current.getBoundingClientRect();
-      const wh = window.innerHeight;
+      if (ticking) return;
+      ticking = true;
 
-      if (rect.top < wh && rect.bottom > 0) {
-        // Progress: 0 when section top hits viewport bottom, 1 when section bottom hits viewport top
-        const progress = Math.max(0, Math.min(1, (wh - rect.top) / (wh + rect.height)));
+      requestAnimationFrame(() => {
+        if (!sectionRef.current || !imgRef.current) { ticking = false; return; }
+        const rect = sectionRef.current.getBoundingClientRect();
+        const wh = window.innerHeight;
 
-        // Y-axis parallax: image moves up within its container
-        // Image is 120% height of container, so we can move it ~20% of container height
-        const yOffset = progress * -16; // moves up as user scrolls down
+        if (rect.top < wh && rect.bottom > 0) {
+          const progress = Math.max(0, Math.min(1, (wh - rect.top) / (wh + rect.height)));
+          const yOffset = progress * -16;
+          const xOffset = (1 - progress) * 2;
+          const grayProgress = Math.max(0, Math.min(1, (progress - 0.1) / 0.4));
+          const grayscale = 100 - grayProgress * 100;
 
-        // X-axis: subtle right-to-left drift
-        const xOffset = (1 - progress) * 2;
+          imgRef.current.style.transform = `translate3d(${xOffset}%, ${yOffset}%, 0) scale(1.02)`;
+          imgRef.current.style.filter = `grayscale(${grayscale}%)`;
+        }
 
-        imgRef.current.style.transform = `translate(${xOffset}%, ${yOffset}%) scale(1.02)`;
-
-        // Grayscale: mono when section enters (~progress 0.1), full color when fully visible (~progress 0.5)
-        // Map progress 0.1-0.5 → grayscale 100%-0%
-        const grayProgress = Math.max(0, Math.min(1, (progress - 0.1) / 0.4));
-        const grayscale = 100 - grayProgress * 100;
-        imgRef.current.style.filter = `grayscale(${grayscale}%)`;
-      }
+        ticking = false;
+      });
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });

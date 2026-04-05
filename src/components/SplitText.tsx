@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { useInView } from "framer-motion";
 
 interface SplitTextProps {
   text: string;
@@ -13,11 +13,6 @@ interface SplitTextProps {
   yOffset?: number;
 }
 
-/**
- * GSAP SplitText-style character-by-character reveal animation.
- * Each character is wrapped in an inline-block span and animates
- * from below with staggered timing for a wave-like effect.
- */
 export default function SplitText({
   text,
   className = "",
@@ -30,47 +25,32 @@ export default function SplitText({
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
 
-  // Split text into lines by <br> or \n, then each line into characters
-  const lines = text.split(/\n|<br\s*\/?>/);
-
+  const lines = text.split(/\n/);
   let charIndex = 0;
 
   return (
     <Tag ref={ref} className={className} aria-label={text.replace(/\n/g, " ")}>
       {lines.map((line, lineIdx) => (
-        <span
-          key={lineIdx}
-          className="block overflow-hidden"
-          aria-hidden="true"
-        >
+        <span key={lineIdx} className="block overflow-hidden" aria-hidden="true">
           <span className="inline-block">
             {line.split("").map((char) => {
               const currentIndex = charIndex++;
               if (char === " ") {
-                return (
-                  <span key={currentIndex} className="inline-block">
-                    &nbsp;
-                  </span>
-                );
+                return <span key={currentIndex} className="inline-block">&nbsp;</span>;
               }
               return (
-                <motion.span
+                <span
                   key={currentIndex}
                   className="inline-block"
-                  initial={{ y: yOffset, opacity: 0 }}
-                  animate={
-                    isInView
-                      ? { y: 0, opacity: 1 }
-                      : { y: yOffset, opacity: 0 }
-                  }
-                  transition={{
-                    duration,
-                    ease: [0.16, 1, 0.3, 1],
-                    delay: startDelay + currentIndex * charDelay,
+                  style={{
+                    transform: isInView ? "translateY(0)" : `translateY(${yOffset}px)`,
+                    opacity: isInView ? 1 : 0,
+                    transition: `transform ${duration}s cubic-bezier(0.16,1,0.3,1) ${startDelay + currentIndex * charDelay}s, opacity ${duration}s cubic-bezier(0.16,1,0.3,1) ${startDelay + currentIndex * charDelay}s`,
+                    willChange: isInView ? "auto" : "transform, opacity",
                   }}
                 >
                   {char}
-                </motion.span>
+                </span>
               );
             })}
           </span>
