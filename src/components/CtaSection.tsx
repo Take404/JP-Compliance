@@ -47,7 +47,7 @@ export default function CtaSection() {
             貴社の課題に合わせた最適な支援プランをご提案いたします。
           </p>
           <a
-            href="mailto:contact@jp-compliance.co.jp"
+            href="mailto:mikamo@jp-cp.com"
             className="inline-block w-full md:w-auto mt-9 md:mt-11 px-10 md:px-14 py-4 md:py-5 text-[15px] md:text-[16px] font-medium text-teal-deep bg-teal hover:bg-[#4DC4BA] hover:shadow-[0_8px_32px_rgba(63,180,170,0.25)] transition-all duration-400 relative overflow-hidden group"
             style={fadeUpStyle(1.0)}
           >

@@ -7,3 +7,4 @@ generated-images/
 .next/
 next-env.d.ts
 assets/logo-source.png
+.vercel

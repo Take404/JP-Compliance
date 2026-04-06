@@ -163,12 +163,14 @@ export default function ServicesSection() {
                       <p className="text-[14px] text-white/70 leading-[1.7] mt-3">
                         {svc.desc}
                       </p>
+                      {/* TODO: 詳しく見るリンクを復活させる（詳細ページ作成後）
                       <div className="mt-4 inline-flex items-center gap-2 text-teal text-[13px] font-en">
                         <span>詳しく見る</span>
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                           <path d="M4 12L12 4M12 4H6M12 4V10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                         </svg>
                       </div>
+                      */}
                     </div>
                   </div>
                 </div>
