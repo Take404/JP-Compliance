@@ -205,8 +205,8 @@ export default function WhyUsSection() {
               <div className="flex-1 bg-[#F0EFEB] p-3 md:p-3.5 text-[12px] md:text-[13px] text-body-text leading-[1.5]">
                 資材審査受託のみ
               </div>
-              <div className="flex-1 bg-teal p-3 md:p-3.5 text-[12px] md:text-[13px] text-white font-medium leading-[1.5]">
-                資材審査 + プロセス設計 + システム構築 + 組織開発 + 包括的助言
+              <div className="flex-1 bg-teal p-3 md:p-3.5 text-[12px] md:text-[13px] text-white font-medium leading-[1.8]">
+                資材審査<br />+ プロセス設計<br />+ システム構築<br />+ 組織開発<br />+ 包括的助言
               </div>
             </div>
           </div>
