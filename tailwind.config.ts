@@ -19,7 +19,7 @@ const config: Config = {
       },
       fontFamily: {
         jp: ['"Noto Sans JP"', '"Hiragino Sans"', 'sans-serif'],
-        en: ['"Inter"', 'sans-serif'],
+        en: ['Verdana', 'Geneva', 'Tahoma', 'sans-serif'],
       },
       maxWidth: {
         container: "1200px",

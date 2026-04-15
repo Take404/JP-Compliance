@@ -75,7 +75,7 @@ export default function ValueSection() {
               }}
             />
             <p className="text-[15px] md:text-[17px] text-white/75 leading-[1.9]" style={fadeUpStyle(1.5)}>
-              実務レベルの資材審査代行は外部委託が可能である一方、経営・組織・ガバナンスの観点から資材審査を&ldquo;仕組みとして構築し、定着させる&rdquo;支援は市場にほぼ存在しない構造的な空白があります。
+              実務レベルの資材審査代行は外部委託が可能である一方、経営・組織・ガバナンスの観点から資材審査を&ldquo;仕組みとして構築し、定着させる&rdquo;支援は市場にほぼ存在しない構造的な空白があります。弊社は、このギャップを埋めることが可能な数少ないプレイヤーとして、資材審査の「組織開発」および「審査プロセス導入」を包括的に支援します。
             </p>
             <div className="mt-8" style={fadeUpStyle(1.8)}>
               <p className="text-[16px] md:text-[18px] text-white/90 leading-[1.85]">

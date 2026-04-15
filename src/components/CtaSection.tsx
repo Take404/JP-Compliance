@@ -5,10 +5,10 @@ import { useInView } from "framer-motion";
 import Image from "next/image";
 
 const navLinks = [
-  { label: "Services", href: "#services" },
   { label: "Why Us", href: "#whyus" },
+  { label: "Services", href: "#services" },
   { label: "Process", href: "#process" },
-  { label: "Contact", href: "#contact" },
+  { label: "About Us", href: "#aboutus" },
 ];
 
 export default function CtaSection() {
@@ -29,14 +29,14 @@ export default function CtaSection() {
       <div className="pt-[100px] md:pt-[130px] lg:pt-[160px] pb-[90px] md:pb-[120px] lg:pb-[140px] relative z-[1]">
         <div className="max-w-container mx-auto px-5 md:px-8 lg:px-12 text-center">
           <div
-            className="w-[80px] md:w-[100px] mx-auto mb-10 md:mb-12"
+            className="w-[110px] md:w-[130px] mx-auto mb-10 md:mb-12"
             style={{
               opacity: isInView ? 0.6 : 0,
               transform: isInView ? "scale(1)" : "scale(0.8)",
               transition: "opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1)",
             }}
           >
-            <Image src="/images/logo.png" alt="JP Compliance" width={100} height={100} className="w-full brightness-200" />
+            <Image src="/images/logo.png" alt="JP Compliance Partners" width={130} height={130} className="w-full brightness-200" />
           </div>
 
           <p className="font-en text-[13px] tracking-[4px] text-teal uppercase font-medium" style={fadeUpStyle(0.3)}>Contact</p>
@@ -76,9 +76,9 @@ export default function CtaSection() {
         <div className="max-w-container mx-auto px-5 md:px-8 lg:px-12">
           <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-6 md:gap-0 mb-8 md:mb-10">
             <div className="flex items-center gap-3">
-              <Image src="/images/logo.png" alt="" width={44} height={44} className="brightness-200 opacity-70" />
-              <span className="font-en text-[16px] font-medium text-white/70 tracking-[2px] uppercase">
-                JP <span className="text-teal">Compliance</span>
+              <Image src="/images/logo-company.jpg" alt="" width={44} height={44} className="w-[44px] h-[44px] object-contain rounded opacity-90" />
+              <span className="font-en text-[14px] font-medium text-white/70 tracking-[1.5px] uppercase">
+                JP <span className="text-teal">Compliance</span> Partners
               </span>
             </div>
             <div className="flex flex-wrap gap-5 md:gap-8">
@@ -88,7 +88,7 @@ export default function CtaSection() {
             </div>
           </div>
           <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 md:gap-0 pt-5 md:pt-6 border-t border-white/[0.06]">
-            <p className="font-en text-[12px] md:text-[13px] text-white/25">&copy; 2026 JP Compliance. All rights reserved.</p>
+            <p className="font-en text-[12px] md:text-[13px] text-white/25">&copy; 2026 JP Compliance Partners. All rights reserved.</p>
             <div className="flex gap-4 md:gap-6">
               <a href="#" className="font-en text-[12px] md:text-[13px] text-white/25 hover:text-white/50 transition-colors duration-300">Privacy Policy</a>
               <a href="#" className="font-en text-[12px] md:text-[13px] text-white/25 hover:text-white/50 transition-colors duration-300">Terms of Service</a>

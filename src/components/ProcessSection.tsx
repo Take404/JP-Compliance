@@ -117,18 +117,6 @@ export default function ProcessSection() {
               }}
             />
 
-            {/* Logo badge */}
-            <div
-              className="absolute bottom-8 lg:bottom-12 right-8 z-[2] w-[48px] h-[48px] lg:w-[64px] lg:h-[64px]"
-              style={{
-                opacity: isInView ? 0.8 : 0,
-                transform: isInView ? "scale(1)" : "scale(0.5)",
-                transition: "opacity 0.8s cubic-bezier(0.16,1,0.3,1) 1.5s, transform 0.8s cubic-bezier(0.16,1,0.3,1) 1.5s",
-              }}
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/images/logo.png" alt="" className="w-full h-full object-contain brightness-200 drop-shadow-lg" />
-            </div>
           </div>
         </div>
 

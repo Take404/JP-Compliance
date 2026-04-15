@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 
 interface NavProps {
   visible: boolean;
@@ -10,10 +11,10 @@ export default function Nav({ visible }: NavProps) {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const links = [
-    { label: "Services", href: "#services" },
     { label: "Why Us", href: "#whyus" },
+    { label: "Services", href: "#services" },
     { label: "Process", href: "#process" },
-    { label: "Insights", href: "#insights" },
+    { label: "About Us", href: "#aboutus" },
   ];
 
   return (
@@ -28,9 +29,12 @@ export default function Nav({ visible }: NavProps) {
         transition: "opacity 0.8s ease-out, transform 0.8s ease-out",
       }}
     >
-      <div className="font-en text-[15px] font-medium tracking-[2px] text-dark-text uppercase">
-        JP <span className="text-teal">Compliance</span>
-      </div>
+      <a href="/" className="flex items-center gap-2.5 hover:opacity-80 transition-opacity duration-300">
+        <Image src="/images/logo-company.jpg" alt="JP Compliance Partners" width={36} height={36} className="w-[36px] h-[36px] object-contain rounded-sm" />
+        <span className="font-en text-[13px] font-medium tracking-[1.5px] text-dark-text uppercase">
+          JP <span className="text-teal">Compliance</span> Partners
+        </span>
+      </a>
 
       {/* Desktop nav links */}
       <div className="hidden md:flex gap-9">

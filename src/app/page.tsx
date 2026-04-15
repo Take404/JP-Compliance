@@ -6,6 +6,7 @@ import ValueSection from "@/components/ValueSection";
 import TrackSection from "@/components/TrackSection";
 import ServicesSection from "@/components/ServicesSection";
 import ProcessSection from "@/components/ProcessSection";
+import AboutSection from "@/components/AboutSection";
 import CtaSection from "@/components/CtaSection";
 
 export default function Home() {
@@ -19,6 +20,7 @@ export default function Home() {
       <TrackSection />
       <ServicesSection />
       <ProcessSection />
+      <AboutSection />
       <CtaSection />
     </main>
   );

@@ -72,9 +72,6 @@ export default function WhyUsSection() {
               WebkitMaskImage: "linear-gradient(to right, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 55%, rgba(0,0,0,0.4) 80%, transparent 100%)",
             }}
           />
-          <p className="font-en text-[11px] tracking-[1px] text-body-text mt-4 opacity-50">
-            Organization development &amp; compliance infrastructure
-          </p>
         </div>
 
         {/* Right: Content — strict top-to-bottom sequential animation */}
@@ -180,19 +177,20 @@ export default function WhyUsSection() {
               transition: "opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1)",
             }}
           >
+            <p className="text-[13px] font-medium text-body-text mb-3 tracking-[0.5px]">対応範囲の違い</p>
             <div
-              className="flex gap-0.5 mt-3"
+              className="flex gap-0.5"
               style={{
                 opacity: phase >= 6 ? 1 : 0,
                 transition: "opacity 0.6s ease-out 0.15s",
               }}
             >
               <div className="w-[100px] md:w-[140px] p-3 md:p-3.5 text-[13px] font-medium text-body-text" />
-              <div className="flex-1 bg-[#F0EFEB] p-3 md:p-3.5 text-center font-en text-[10px] md:text-[11px] tracking-[1px] uppercase text-body-text">
-                外部委託機関
+              <div className="flex-1 bg-[#F0EFEB] p-3 md:p-3.5 text-center text-[10px] md:text-[11px] tracking-[0.5px] text-body-text leading-[1.5]">
+                他社<br />（一般的な外部委託機関）
               </div>
-              <div className="flex-1 bg-teal p-3 md:p-3.5 text-center font-en text-[10px] md:text-[11px] tracking-[1px] uppercase text-white font-medium">
-                JP Compliance
+              <div className="flex-1 bg-teal p-3 md:p-3.5 text-center text-[10px] md:text-[11px] tracking-[0.5px] text-white font-medium leading-[1.5]">
+                当社<br />（JP Compliance Partners）
               </div>
             </div>
             <div
