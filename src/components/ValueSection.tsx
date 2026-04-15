@@ -50,7 +50,7 @@ export default function ValueSection() {
       <div className="max-w-container mx-auto px-5 md:px-8 lg:px-12 w-full relative z-[1]">
         <div className="grid grid-cols-1 lg:grid-cols-[7fr_5fr] gap-10 lg:gap-20 items-start">
           <div className="pt-3">
-            <p className="font-en text-[12px] tracking-[4px] text-teal uppercase font-medium" style={fadeUpStyle(0)}>Our Position</p>
+            <p className="font-en text-[12px] tracking-[4px] text-teal uppercase font-medium" style={fadeUpStyle(0)}>Our Proposition</p>
             <div className="text-[64px] leading-none text-teal mt-8 opacity-40" style={fadeUpStyle(0.3)}>&ldquo;</div>
             <div className="mt-4">
               {quoteLines.map((line, i) => (
