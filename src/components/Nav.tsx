@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 import Image from "next/image";
 
 interface NavProps {
@@ -9,6 +10,14 @@ interface NavProps {
 
 export default function Nav({ visible }: NavProps) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const pathname = usePathname();
+
+  const handleLogoClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (pathname === "/") {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
 
   const links = [
     { label: "Why Us", href: "#whyus" },
@@ -29,7 +38,7 @@ export default function Nav({ visible }: NavProps) {
         transition: "opacity 0.8s ease-out, transform 0.8s ease-out",
       }}
     >
-      <a href="/" className="flex items-center gap-2.5 hover:opacity-80 transition-opacity duration-300">
+      <a href="/" onClick={handleLogoClick} className="flex items-center gap-2.5 hover:opacity-80 transition-opacity duration-300">
         <Image src="/images/logo-company-transparent.png" alt="JP Compliance Partners" width={36} height={36} className="w-[36px] h-[36px] object-contain" />
         <span className="font-en text-[13px] font-medium tracking-[1.5px] text-dark-text uppercase">
           JP <span className="text-teal">Compliance</span> Partners
