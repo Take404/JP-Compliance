@@ -30,7 +30,7 @@ export default function Nav({ visible }: NavProps) {
       }}
     >
       <a href="/" className="flex items-center gap-2.5 hover:opacity-80 transition-opacity duration-300">
-        <Image src="/images/logo-company.jpg" alt="JP Compliance Partners" width={36} height={36} className="w-[36px] h-[36px] object-contain rounded-sm" />
+        <Image src="/images/logo-company-transparent.png" alt="JP Compliance Partners" width={36} height={36} className="w-[36px] h-[36px] object-contain" />
         <span className="font-en text-[13px] font-medium tracking-[1.5px] text-dark-text uppercase">
           JP <span className="text-teal">Compliance</span> Partners
         </span>
